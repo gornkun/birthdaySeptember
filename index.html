@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 💜✨</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<style>
+  :root {
+    --bg-color: #120e24;
+    --card-bg: #1c1538;
+    --accent: #d8b4fe;      /* ม่วงลาเวนเดอร์ */
+    --sub-accent: #c084fc;  /* ม่วงสดใส */
+    --lavender-light: #f3e8ff;
+    --text-muted: #b8accd;
+    --line: rgba(216, 180, 254, 0.25);
+    --font-title: 'Baloo 2', sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Sarabun', sans-serif;
+    background-color: var(--bg-color);
+    color: #fff;
+    overflow-x: hidden;
+    background-image: radial-gradient(rgba(192, 132, 252, 0.15) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+  }
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px 80px;
+  }
+
+  .sec-title {
+    font-family: var(--font-title);
+    font-size: 17px;
+    color: var(--accent);
+    margin: 28px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-shadow: 0 0 10px rgba(216, 180, 254, 0.3);
+  }
+
+  /* --- 1. Hero Cover --- */
+  .hero-card {
+    background: linear-gradient(180deg, #281d45 0%, #17112e 100%);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+  .cover-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 2px solid var(--accent);
+  }
+  .hero-title { font-family: var(--font-title); font-size: 24px; margin: 12px 0 0; color: var(--lavender-light); }
+  .hero-subtitle { font-size: 13px; color: var(--text-muted); }
+
+  /* --- 2. Birthday Cake --- */
+  .cake-box {
+    background: linear-gradient(135deg, #231942 0%, #17112e 100%);
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    text-align: center;
+  }
+  .cake-icon { font-size: 55px; cursor: pointer; transition: transform 0.3s; display: inline-block; }
+  .cake-icon:hover { transform: scale(1.1); }
+
+  /* --- NEW: Video Box --- */
+  .video-box {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    text-align: center;
+  }
+  .video-player {
+    width: 100%;
+    max-height: 300px;
+    border-radius: 14px;
+    border: 1.5px solid var(--accent);
+    outline: none;
+    background: #000;
+  }
+
+  /* --- 3. Memory Match Game --- */
+  .game-box {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    text-align: center;
+  }
+  .match-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .match-card {
+    aspect-ratio: 1/1;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  .match-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+  }
+  .match-card.flipped .match-inner { transform: rotateY(180deg); }
+  .match-front, .match-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    border: 1.5px solid var(--accent);
+  }
+  .match-front {
+    background: #2a1f45;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+  .match-back {
+    transform: rotateY(180deg);
+    overflow: hidden;
+  }
+  .match-back img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* --- 4. Flower Bouquet --- */
+  .bouquet-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    text-align: center;
+  }
+  .bouquet-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .flower-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .flower-item:hover { transform: translateY(-3px); background: rgba(216, 180, 254, 0.1); }
+  .flower-item img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 6px;
+  }
+  .flower-name { font-size: 12px; color: var(--accent); font-weight: 600; }
+
+  /* --- 5. Balloon Pop --- */
+  .balloon-box {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    text-align: center;
+  }
+  .balloon-icon { font-size: 50px; cursor: pointer; animation: float 3s ease-in-out infinite; display: inline-block; }
+  .balloon-card {
+    display: none;
+    margin-top: 12px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid var(--accent);
+  }
+  .balloon-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
+
+  /* --- 6. Gallery Grid --- */
+  .grid-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .grid-item { aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: var(--card-bg); padding: 5px; }
+  .grid-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+
+  /* --- 7. Letter Box --- */
+  .letter-box { background: var(--card-bg); border: 1px solid var(--line); border-radius: 20px; padding: 20px; text-align: center; margin-top: 24px; }
+  .btn-letter { background: var(--accent); color: #120e24; border: none; padding: 10px 24px; border-radius: 20px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 13px; }
+  .letter-content { display: none; margin-top: 14px; text-align: left; background: rgba(0,0,0,0.25); padding: 14px; border-radius: 12px; font-size: 13px; line-height: 1.6; color: #e2d9f3; border: 1px dashed var(--line); }
+
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 1. Hero Cover (รูปที่ 1) -->
+  <div class="hero-card">
+    <img src="photo1.jpg" alt="HBD Cover" class="cover-img">
+    <h1 class="hero-title">Happy Birthday To You! 🎂💜</h1>
+    <div class="hero-subtitle">ขอให้เป็นปีที่โอบล้อมไปด้วยความสุขและรอยยิ้มนะ</div>
+  </div>
+
+  <!-- 2. Birthday Cake -->
+  <div class="sec-title">🎂 เค้กวันเกิดดิจิทัล</div>
+  <div class="cake-box">
+    <div class="cake-icon" id="cakeIcon" onclick="blowCandle()">🎂</div>
+    <div id="cakeText" style="font-size:13px; color:var(--accent); margin-top:8px;">แตะที่เค้กเพื่อเป่าเทียนและอธิษฐาน! ✨</div>
+  </div>
+
+  <!-- 🎬 SPECIAL: Video Section -->
+  <div class="sec-title">🎬 วิดีโอช่วงเวลาพิเศษ</div>
+  <div class="video-box">
+    <video class="video-player" controls id="myVideo" onplay="pauseBgMusic()">
+      <source src="video.mp4" type="video/mp4">
+      เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
+    </video>
+  </div>
+
+  <!-- 3. Memory Match Game (รูปที่ 2 และ 3 - อย่างละ 2 ใบ) -->
+  <div class="sec-title">🎮 มินิเกมจับคู่ภาพความทรงจำ</div>
+  <div class="game-box">
+    <div id="gameStatus" style="font-size:12px; color:var(--text-muted);">แตะเปิดการ์ดจับคู่รูปภาพให้ตรงกัน! 💜</div>
+    <div class="match-grid">
+      <div class="match-card" onclick="flipGameCard(this, 'photo2.jpg')">
+        <div class="match-inner">
+          <div class="match-front">🎁</div>
+          <div class="match-back"><img src="photo2.jpg" alt="Card"></div>
+        </div>
+      </div>
+      <div class="match-card" onclick="flipGameCard(this, 'photo3.jpg')">
+        <div class="match-inner">
+          <div class="match-front">🎁</div>
+          <div class="match-back"><img src="photo3.jpg" alt="Card"></div>
+        </div>
+      </div>
+      <div class="match-card" onclick="flipGameCard(this, 'photo2.jpg')">
+        <div class="match-inner">
+          <div class="match-front">🎁</div>
+          <div class="match-back"><img src="photo2.jpg" alt="Card"></div>
+        </div>
+      </div>
+      <div class="match-card" onclick="flipGameCard(this, 'photo3.jpg')">
+        <div class="match-inner">
+          <div class="match-front">🎁</div>
+          <div class="match-back"><img src="photo3.jpg" alt="Card"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Lavender Flower Bouquet (รูปที่ 4 - 7) -->
+  <div class="sec-title">💐 ช่อดอกไม้ความทรงจำ (4 ดอก)</div>
+  <div class="bouquet-card">
+    <div style="font-size:12px; color:var(--text-muted);">แตะที่ดอกไม้เพื่อเปิดดูความทรงจำและคำอวยพร</div>
+    <div class="bouquet-grid">
+      <div class="flower-item" onclick="popFlower('ขอให้มีรอยยิ้มสดใสในทุกๆ วันนะ! 🌸')">
+        <img src="photo4.jpg" alt="Flower 1">
+        <div class="flower-name">🪻 ดอกลาเวนเดอร์</div>
+      </div>
+      <div class="flower-item" onclick="popFlower('ขอให้เจอแต่เรื่องราวดีๆ เข้ามาในชีวิต 💖')">
+        <img src="photo5.jpg" alt="Flower 2">
+        <div class="flower-name">🌷 ดอกทิวลิปม่วง</div>
+      </div>
+      <div class="flower-item" onclick="popFlower('เติบโตอย่างสวยงามและมีความสุขเสมอนะ ✨')">
+        <img src="photo6.jpg" alt="Flower 3">
+        <div class="flower-name">ไฮเดรนเยีย 🪻</div>
+      </div>
+      <div class="flower-item" onclick="popFlower('ขอบคุณที่เป็นความสดใสให้ทุกคนนะ 💜')">
+        <img src="photo7.jpg" alt="Flower 4">
+        <div class="flower-name">กุหลาบม่วง 🌹</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Balloon Pop (รูปที่ 8) -->
+  <div class="sec-title">🎈 เซอร์ไพรส์ลูกโป่งวันเกิด</div>
+  <div class="balloon-box">
+    <div class="balloon-icon" id="balloonBtn" onclick="popBalloon()">🎈</div>
+    <div id="balloonText" style="font-size:12px; color:var(--text-muted); margin-top:4px;">แตะที่ลูกโป่งเพื่อเจาะรับรูปพิเศษ</div>
+    <div class="balloon-card" id="balloonCard">
+      <img src="photo8.jpg" alt="Special Memory">
+      <div style="font-size:13px; color:var(--accent); margin-top:8px; font-weight:600;">You are my brightest star! ✨</div>
+    </div>
+  </div>
+
+  <!-- 6. Photo Gallery (รูปที่ 9 - 10) -->
+  <div class="sec-title">📸 คลังภาพความทรงจำ</div>
+  <div class="grid-gallery">
+    <div class="grid-item"><img src="photo9.jpg" alt="Gallery 1"></div>
+    <div class="grid-item"><img src="photo10.jpg" alt="Gallery 2"></div>
+  </div>
+
+  <!-- 7. Birthday Letter -->
+  <div class="letter-box">
+    <div style="font-size:16px; font-weight:600; color:var(--accent);">การ์ดความในใจวันเกิด ✉️</div>
+    <div style="font-size:12px; color:var(--text-muted);">ข้อความอวยพรส่งตรงถึงคุณ</div>
+    <button class="btn-letter" id="btnLetter" onclick="toggleLetter()">เปิดอ่านการ์ดอวยพร 💌</button>
+    <div class="letter-content" id="letterContent">
+      สุขสันต์วันเกิด 🎂✨<br><br>
+      ขอบคุณที่เกิดมาให้รัก ขอบคุณที่เป็นรอยยิ้มและพื้นที่ปลอดภัยให้กันเสมอ และขอบคุณที่เข้ามาทำให้ทุกวันกลายเป็นวันที่พิเศษนะ<br><br>
+      ขอให้ปีนี้เป็นปีที่ใจดีกับคุณมากๆ มีความสุข สุขภาพแข็งแรง น่ารักแบบนี้ตลอดไป (และขอบคุณที่ทนความดื้อกันได้ตลอดด้วยนะ 555)<br><br>
+      ขอให้เราได้อยู่เป็นความสุขให้กันแบบนี้ไปนานๆ น่ารักเท่าเดิม แต่รักเค้าเพิ่มขึ้นทุกวันนะ 💜💖
+    </div>
+  </div>
+
+</div>
+
+<!-- แท็กเล่นเพลงซ่อนไว้ (เปลี่ยนลิงค์ไฟล์เพลงตรง src="... .mp3" ได้เลย) -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const purpleConfetti = () => {
+    confetti({
+      particleCount: 50,
+      spread: 60,
+      colors: ['#d8b4fe', '#c084fc', '#f3e8ff', '#ffffff'],
+      origin: { y: 0.5 }
+    });
+  };
+
+  // --- Auto-play Audio on First Interaction ---
+  function playAudioOnInteraction() {
+    const music = document.getElementById('bgMusic');
+    if (music && music.paused) {
+      music.play().then(() => {
+        window.removeEventListener('click', playAudioOnInteraction);
+        window.removeEventListener('touchstart', playAudioOnInteraction);
+      }).catch(error => {
+        console.log("Autoplay was prevented, waiting for interaction.");
+      });
+    }
+  }
+
+  window.addEventListener('click', playAudioOnInteraction);
+  window.addEventListener('touchstart', playAudioOnInteraction);
+
+  // --- Pause Background Music when Video Plays ---
+  function pauseBgMusic() {
+    const music = document.getElementById('bgMusic');
+    if (music) {
+      music.pause();
+    }
+  }
+
+  // --- Game Logic ---
+  let firstCard = null;
+  let secondCard = null;
+  let lockBoard = false;
+  let matchedCount = 0;
+
+  function flipGameCard(card, imgPath) {
+    if (lockBoard || card === firstCard || card.classList.contains('matched')) return;
+
+    card.classList.add('flipped');
+
+    if (!firstCard) {
+      firstCard = { element: card, img: imgPath };
+      return;
+    }
+
+    secondCard = { element: card, img: imgPath };
+    lockBoard = true;
+
+    if (firstCard.img === secondCard.img) {
+      firstCard.element.classList.add('matched');
+      secondCard.element.classList.add('matched');
+      matchedCount += 2;
+      resetBoard();
+      
+      if (matchedCount === 4) {
+        document.getElementById('gameStatus').textContent = '🎉 เก่งมาก! จับคู่ครบแล้ว ยินดีด้วยนะ 💜';
+        purpleConfetti();
+      }
+    } else {
+      setTimeout(() => {
+        firstCard.element.classList.remove('flipped');
+        secondCard.element.classList.remove('flipped');
+        resetBoard();
+      }, 1000);
+    }
+  }
+
+  function resetBoard() {
+    [firstCard, secondCard] = [null, null];
+    lockBoard = false;
+  }
+
+  // --- Flower Pop ---
+  function popFlower(msg) {
+    purpleConfetti();
+    alert(msg);
+  }
+
+  // --- Blow Candle ---
+  let isBlown = false;
+  function blowCandle() {
+    if(!isBlown) {
+      document.getElementById('cakeIcon').textContent = '✨🍰✨';
+      document.getElementById('cakeText').textContent = '🎉 คำอธิษฐานของคุณเป็นจริงแล้ว! Happy Birthday 🎉';
+      purpleConfetti();
+      isBlown = true;
+    }
+  }
+
+  // --- Pop Balloon ---
+  let balloonPopped = false;
+  function popBalloon() {
+    if(!balloonPopped) {
+      document.getElementById('balloonBtn').style.display = 'none';
+      document.getElementById('balloonText').style.display = 'none';
+      document.getElementById('balloonCard').style.display = 'block';
+      purpleConfetti();
+      balloonPopped = true;
+    }
+  }
+
+  // --- Toggle Letter ---
+  function toggleLetter() {
+    const content = document.getElementById('letterContent');
+    const btn = document.getElementById('btnLetter');
+    if (content.style.display === 'block') {
+      content.style.display = 'none';
+      btn.textContent = 'เปิดอ่านการ์ดอวยพร 💌';
+    } else {
+      content.style.display = 'block';
+      btn.textContent = 'พับเก็บการ์ด ✕';
+      purpleConfetti();
+    }
+  }
+</script>
+
+</body>
+  </html>
+        
